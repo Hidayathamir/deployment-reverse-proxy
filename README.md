@@ -11,6 +11,59 @@ run docker image enriquecatala/fastapi-helloworld
 docker run -d -p 5000:5000 enriquecatala/fastapi-helloworld
 ```
 
+## 3. Reverse proxy our local to internet using nginx
+
+### 3.1 Enable firewall, install nginx and allow firewall nginx
+
+```
+sudo apt install nginx -y
+sudo ufw allow OpenSSH
+sudo ufw allow 22
+sudo ufw allow "Nginx Full"
+sudo ufw enable
+```
+
+### 3.2 Setup nginx to map port 80 to port 8080
+
+```
+sudo nano /etc/nginx/sites-available/bazr-backend
+```
+
+```
+server {
+   listen 80;
+   listen [::]:80;
+
+   location / {
+     proxy_pass http://localhost:8080;
+   }
+}
+```
+
+basically we say to nginx that if there’s any request on port 80 please give it to localhost:8080
+
+### 3.3 Remove nginx default sites enabled
+
+```
+sudo rm /etc/nginx/sites-enabled/default
+```
+
+### 3.4 Add link from our nginx setup to nginx sites enabled
+
+```
+sudo ln -s /etc/nginx/sites-available/bazr-backend /etc/nginx/sites-enabled/bazr-backend
+```
+
+### 3.5 Reload nginx
+
+```
+sudo nginx -s reload
+```
+
+now our sites is running, try to access http://157.230.240.209/docs
+
+
+
 nginx http
 
 ```
