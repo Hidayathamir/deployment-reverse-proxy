@@ -4,9 +4,13 @@
 
 install docker
 
-## core
+## step
 
 run docker image enriquecatala/fastapi-helloworld
+```
+docker run -d -p 5000:5000 enriquecatala/fastapi-helloworld
+```
+
 nginx http
 go to ip
 domain to ip
