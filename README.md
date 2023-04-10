@@ -95,28 +95,18 @@ sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
 
-## run certbot
+## run certbot generate certificate
+```
+sudo certbot certonly --nginx
+```
 
 ## update nginx
-
-# go to domain with https
-
-
-
-
-######## bawah belum
-
-
-nginx http
-
 ```
-cd /etc/nginx/sites-available
-touch go-quote 
 server {
     listen 443 ssl;
     server_name hidayathamir.my.id;
-    ssl_certificate /etc/letsencrypt/live/hidayathamir.my.id/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/hidayathamir.my.id/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/www.hidayathamir.my.id/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.hidayathamir.my.id/privkey.pem;
     return 301 https://www.hidayathamir.my.id;
 }
 
@@ -126,7 +116,7 @@ server {
     ssl_certificate /etc/letsencrypt/live/www.hidayathamir.my.id/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/www.hidayathamir.my.id/privkey.pem;
     location / {
-        proxy_pass http://localhost:8080;
+        proxy_pass http://localhost:5000;
     }
 }
 
@@ -142,3 +132,7 @@ server {
     return 301 https://www.hidayathamir.my.id;
 }
 ```
+
+
+# go to domain with https
+
