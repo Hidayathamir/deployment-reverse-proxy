@@ -136,3 +136,8 @@ server {
 
 # go to domain with https
 
+I have a rough scribbled README.md file on how to deploy, please fix it and provide a description of the steps involved
+
+please response in raw markdown format
+
+here's the file
