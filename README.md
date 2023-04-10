@@ -74,8 +74,7 @@ sudo nginx -s reload
 now our sites is running, try to access http://157.230.240.209/docs
 
 
-
-
+# domain to ip
 
 
 
@@ -121,8 +120,6 @@ server {
 }
 ```
 
-go to ip
-domain to ip
 make it www
 go to domain with http
 https
