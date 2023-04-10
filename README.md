@@ -76,7 +76,30 @@ now our sites is running, try to access http://157.230.240.209/docs
 
 # domain to ip
 
+# go to domain with http
 
+# configure nginx to handle https with letsencrypt & certbot
+
+```
+sudo apt update
+sudo apt install snapd
+```
+
+## install certbot
+```
+sudo snap install --classic certbot
+
+```
+## make sure cerbot can run
+```
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+## run certbot
+
+## update nginx
+
+# go to domain with https
 
 
 
@@ -119,8 +142,3 @@ server {
     return 301 https://www.hidayathamir.my.id;
 }
 ```
-
-make it www
-go to domain with http
-https
-go to domain with https
