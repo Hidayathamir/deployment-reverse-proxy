@@ -17,8 +17,15 @@ docker run -d -p 5000:5000 enriquecatala/fastapi-helloworld
 
 ```
 sudo apt install nginx -y
+```
+
+```
+sudo ufw app list
+sudo ufw status
+```
+
+```
 sudo ufw allow OpenSSH
-sudo ufw allow 22
 sudo ufw allow "Nginx Full"
 sudo ufw enable
 ```
@@ -35,12 +42,12 @@ server {
    listen [::]:80;
 
    location / {
-     proxy_pass http://localhost:8080;
+     proxy_pass http://localhost:5000;
    }
 }
 ```
 
-basically we say to nginx that if there’s any request on port 80 please give it to localhost:8080
+basically we say to nginx that if there’s any request on port 80 please give it to localhost:5000
 
 ### 3.3 Remove nginx default sites enabled
 
@@ -54,6 +61,10 @@ sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/bazr-backend /etc/nginx/sites-enabled/bazr-backend
 ```
 
+```
+sudo nginx -t
+```
+
 ### 3.5 Reload nginx
 
 ```
@@ -62,6 +73,16 @@ sudo nginx -s reload
 
 now our sites is running, try to access http://157.230.240.209/docs
 
+
+
+
+
+
+
+
+
+
+######## bawah belum
 
 
 nginx http
