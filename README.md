@@ -9,7 +9,7 @@ install docker
 ### 2.1 Run Docker image
 
 ```
-docker run -d -p 5000:5000 enriquecatala/fastapi-helloworld
+sudo docker run -d -p 5000:5000 enriquecatala/fastapi-helloworld
 ```
 
 make sure it's run properly by test it with
