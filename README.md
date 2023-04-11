@@ -1,40 +1,41 @@
 # deployment-reverse-proxy
 
-## pre
+## 1. Pre-requisites
 
 install docker
 
-## step
+## 2. Step-by-step Deployment
 
-run docker image enriquecatala/fastapi-helloworld
+### 2.1 Run Docker image
+
 ```
 docker run -d -p 5000:5000 enriquecatala/fastapi-helloworld
 ```
 
-## 3. Reverse proxy our local to internet using nginx
-
-### 3.1 Enable firewall, install nginx and allow firewall nginx
+### 2.2 Install Nginx and enable firewall
 
 ```
+sudo apt update
 sudo apt install nginx -y
-```
-
-```
 sudo ufw app list
 sudo ufw status
-```
-
-```
 sudo ufw allow OpenSSH
 sudo ufw allow "Nginx Full"
 sudo ufw enable
+sudo ufw status
 ```
 
-### 3.2 Setup nginx to map port 80 to port 8080
+### 2.3 Reverse Proxy using Nginx
+
+#### 2.3.1 Configure Nginx to map port 80 to 5000
+
+Create a new Nginx configuration file:
 
 ```
-sudo nano /etc/nginx/sites-available/bazr-backend
+sudo nano /etc/nginx/sites-available/reverse-proxy
 ```
+
+Paste the following configuration into the file:
 
 ```
 server {
@@ -49,72 +50,101 @@ server {
 
 basically we say to nginx that if there’s any request on port 80 please give it to localhost:5000
 
-### 3.3 Remove nginx default sites enabled
+#### 2.3.2 Remove Nginx default site
 
 ```
 sudo rm /etc/nginx/sites-enabled/default
 ```
 
-### 3.4 Add link from our nginx setup to nginx sites enabled
+#### 2.3.3 Enable your Nginx configuration
+
+Create a symbolic link from the configuration file to the sites-enabled directory:
 
 ```
-sudo ln -s /etc/nginx/sites-available/bazr-backend /etc/nginx/sites-enabled/bazr-backend
+sudo ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/reverse-proxy
 ```
+
+Check the syntax of your configuration:
 
 ```
 sudo nginx -t
 ```
 
-### 3.5 Reload nginx
+#### 2.3.4 Reload Nginx
 
 ```
 sudo nginx -s reload
 ```
 
-now our sites is running, try to access http://157.230.240.209/docs
+now our sites is running, try to access http://your.ip.your.ip/
 
+### 2.4 Register a domain and point its DNS to your server's IP address
 
-# domain to ip
+#### 2.4.1 Configure the DNS settings for your domain
 
-# go to domain with http
+Once you have registered a domain name, you need to configure its DNS settings to point to your server's IP address. This is done by adding an "A" record to your domain's DNS settings. The "A" record maps your domain name to the IP address of your server.
 
-# configure nginx to handle https with letsencrypt & certbot
+#### 2.4.2 Wait for DNS propagation
+
+After you have updated your domain's DNS settings, it can take some time for the changes to propagate throughout the internet
+
+#### 2.4.3 Update Nginx configuration
+
+```
+server {
+    listen 80;
+    server_name yourdomain.com
+    return 301 http://www.yourcomain.com;
+}
+server {
+    listen 80;
+    server_name www.yourdomain.com;
+    location / {
+        proxy_pass http://localhost:5000;
+    }
+}
+```
+
+now our sites is running, try to access http://www.yourdomain.com/
+
+### 2.5 Configure HTTPS using Let's Encrypt
+
+#### 2.5.1 Install Certbot
 
 ```
 sudo apt update
 sudo apt install snapd
-```
-
-## install certbot
-```
 sudo snap install --classic certbot
-
 ```
-## make sure cerbot can run
+
+Create a symbolic link for Certbot:
+
 ```
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
 
-## run certbot generate certificate
+#### 2.5.2 Generate SSL certificate using Certbot
+
 ```
 sudo certbot certonly --nginx
 ```
 
-## update nginx
+#### 2.5.3 Update Nginx configuration
+
 ```
 server {
     listen 443 ssl;
-    server_name hidayathamir.my.id;
-    ssl_certificate /etc/letsencrypt/live/www.hidayathamir.my.id/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/www.hidayathamir.my.id/privkey.pem;
-    return 301 https://www.hidayathamir.my.id;
+    server_name yourdomain.com;
+    ssl_certificate /etc/letsencrypt/live/www.yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.yourdomain.com/privkey.pem;
+    return 301 https://www.yourdomain.com;
 }
 
 server {
     listen 443 ssl;
-    server_name www.hidayathamir.my.id;
-    ssl_certificate /etc/letsencrypt/live/www.hidayathamir.my.id/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/www.hidayathamir.my.id/privkey.pem;
+    server_name www.yourdomain.com;
+    ssl_certificate /etc/letsencrypt/live/www.yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.yourdomain.com/privkey.pem;
     location / {
         proxy_pass http://localhost:5000;
     }
@@ -122,22 +152,15 @@ server {
 
 server {
     listen 80;
-    server_name hidayathamir.my.id;
-    return 301 https://www.hidayathamir.my.id;
+    server_name yourdomain.com;
+    return 301 https://www.yourdomain.com;
 }
 
 server {
     listen 80;
-    server_name www.hidayathamir.my.id;
-    return 301 https://www.hidayathamir.my.id;
+    server_name www.yourdomain.com;
+    return 301 https://www.yourdomain.com;
 }
 ```
 
-
-# go to domain with https
-
-I have a rough scribbled README.md file on how to deploy, please fix it and provide a description of the steps involved
-
-please response in raw markdown format
-
-here's the file
+now our sites is running, try to access https://www.yourdomain.com/
