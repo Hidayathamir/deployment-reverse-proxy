@@ -95,6 +95,10 @@ After you have updated your domain's DNS settings, it can take some time for the
 #### 2.4.3 Update Nginx configuration
 
 ```
+sudo nano /etc/nginx/sites-available/reverse-proxy
+```
+
+```
 server {
     listen 80;
     server_name yourdomain.com
@@ -135,6 +139,10 @@ sudo certbot certonly --nginx
 ```
 
 #### 2.5.3 Update Nginx configuration
+
+```
+sudo nano /etc/nginx/sites-available/reverse-proxy
+```
 
 ```
 server {
