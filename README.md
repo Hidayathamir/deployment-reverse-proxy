@@ -86,7 +86,7 @@ now our sites is running, try to access http://your.ip.your.ip/
 
 #### 2.4.1 Configure the DNS settings for your domain
 
-Once you have registered a domain name, you need to configure its DNS settings to point to your server's IP address. This is done by adding an "A" record to your domain's DNS settings. The "A" record maps your domain name to the IP address of your server.
+Once you have registered a domain name, you need to configure its DNS settings to point to your server's IP address. This is done by adding an "A" record to your domain's DNS settings. The "A" record maps your domain name to the IP address of your server. I recommend you to watch [this](https://youtu.be/QcNBLSSn8Vg) youtube video about "How to Point a Domain Name to an IP Address (DNS A record example)"
 
 #### 2.4.2 Wait for DNS propagation
 
