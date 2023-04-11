@@ -46,8 +46,6 @@ Paste the following configuration into the file:
 ```
 server {
    listen 80;
-   listen [::]:80;
-
    location / {
      proxy_pass http://localhost:5000;
    }
@@ -102,6 +100,7 @@ server {
     server_name yourdomain.com
     return 301 http://www.yourcomain.com;
 }
+
 server {
     listen 80;
     server_name www.yourdomain.com;
