@@ -169,4 +169,10 @@ server {
 }
 ```
 
+#### 2.5.4 Reload Nginx
+
+```
+sudo nginx -s reload
+```
+
 now our sites is running, try to access https://www.yourdomain.com/
