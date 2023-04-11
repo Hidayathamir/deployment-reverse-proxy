@@ -12,6 +12,12 @@ install docker
 docker run -d -p 5000:5000 enriquecatala/fastapi-helloworld
 ```
 
+make sure it's run properly by test it with
+
+```
+curl localhost:5000/docs
+```
+
 ### 2.2 Install Nginx and enable firewall
 
 ```
