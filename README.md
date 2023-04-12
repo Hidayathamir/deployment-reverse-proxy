@@ -1,5 +1,7 @@
 # deployment-reverse-proxy
 
+If you like video format, [here](https://youtu.be/f2a3tt2_FSk) is the youtube video.
+
 ## 1. Pre-requisites
 
 install docker
