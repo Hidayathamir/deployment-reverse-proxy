@@ -103,7 +103,7 @@ sudo nano /etc/nginx/sites-available/reverse-proxy
 ```
 server {
     listen 80;
-    server_name yourdomain.com
+    server_name yourdomain.com;
     return 301 http://www.yourcomain.com;
 }
 
@@ -114,6 +114,12 @@ server {
         proxy_pass http://localhost:5000;
     }
 }
+```
+
+#### 2.4.4 Reload Nginx
+
+```
+sudo nginx -s reload
 ```
 
 now our sites is running, try to access http://www.yourdomain.com/
