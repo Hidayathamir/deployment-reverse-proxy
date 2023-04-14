@@ -1,6 +1,6 @@
 # deployment-reverse-proxy
 
-If you like video format, [here](https://youtu.be/f2a3tt2_FSk) is the youtube video.
+If you like video format, [here](https://youtube.com/playlist?list=PLGiTvBmFA11_JEyYAui6tTv65HsS8HWvq) is the youtube video.
 
 ## 1. Pre-requisites
 
